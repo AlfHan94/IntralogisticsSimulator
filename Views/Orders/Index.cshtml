@@ -50,15 +50,37 @@
                     <table class="table table-sm table-bordered">
                         <thead class="table-light">
                             <tr>
-                                <th>Produkt ID</th>
-                                <th>Antal</th>
+                                <th>Produkt</th>
+                                <th>Lagerplats</th>
+                                <th>Antal att plocka</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in order.OrderItems)
                             {
                                 <tr>
-                                    <td>Produkt #@item.ProductId</td>
+                                    <td>
+                                        @if (item.Product != null)
+                                        {
+                                            <strong>@item.Product.Name</strong>
+                                            <br />
+                                            <small class="text-muted">ID: @item.ProductId</small>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">⚠️ Produkt #@item.ProductId (hittades ej)</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Product != null)
+                                        {
+                                            <span class="badge bg-secondary">📍 @item.Product.Location</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
                                     <td><strong>@item.Quantity st</strong></td>
                                 </tr>
                             }
